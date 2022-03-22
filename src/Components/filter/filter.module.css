@@ -1,0 +1,17 @@
+.input {
+  background-color: rgb(226, 226, 226);
+}
+
+.container {
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+  padding-top: 15px;
+  border-top: 1px dashed gray;
+}
+
+.inputName {
+  background-color: rgb(226, 226, 226);
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
