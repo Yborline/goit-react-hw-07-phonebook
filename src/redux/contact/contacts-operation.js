@@ -12,13 +12,15 @@ import {
   fetchContactsSuccess,
 } from "./contacts-action";
 
-axios.defaults.baseURL = "https://6235f643163bf7c474604d18.mockapi.io/contacts";
+// axios.defaults.baseURL = "https://6235f643163bf7c474604d18.mockapi.io/contacts";
+axios.defaults.baseURL = "https://connections-api.herokuapp.com";
 
 export const fetchContacts = createAsyncThunk(
   "contacts/fetchContacts",
   async (_, rejectWithValue) => {
     try {
       const { data } = await axios.get("/contacts");
+
       return data;
     } catch (error) {
       rejectWithValue(alert(error.message));
@@ -43,11 +45,10 @@ export const fetchContacts = createAsyncThunk(
 
 export const addContact = createAsyncThunk(
   "contacts/addContacts",
-
   async (text) => {
     const contacts = {
       name: text.name,
-      phone: text.phone,
+      number: text.phone,
       completed: false,
     };
     const { data } = await axios.post("/contacts", contacts);
