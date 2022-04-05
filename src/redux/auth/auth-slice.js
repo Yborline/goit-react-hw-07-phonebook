@@ -4,9 +4,10 @@ import authOperations from "./auth-operations";
 const initialState = {
   user: { name: null, email: null },
   token: null,
-  fetchCurrentUser: false,
+
   isLoggedIn: false,
-  isLoading: false,
+  isFetchingCurrentUser: false,
+  // isLoading: false,
 };
 
 const authSlice = createSlice({
@@ -29,9 +30,9 @@ const authSlice = createSlice({
       state.isLoggedIn = false;
     },
 
-    // [authOperations.fetchCurrentUser.pending](state) {
-    //   state.isFetchingCurrentUser = true;
-    // },
+    [authOperations.fetchCurrentUser.pending](state) {
+      state.isFetchingCurrentUser = true;
+    },
 
     [authOperations.fetchCurrentUser.fulfilled](state, { payload }) {
       state.user = payload;
@@ -39,7 +40,7 @@ const authSlice = createSlice({
       state.isFetchingCurrentUser = false;
     },
 
-    [authOperations.fetchCurrentUser.rejected](state, { payload }) {
+    [authOperations.fetchCurrentUser.rejected](state) {
       state.isFetchingCurrentUser = false;
     },
   },

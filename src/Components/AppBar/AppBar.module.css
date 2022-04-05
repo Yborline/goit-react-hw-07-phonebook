@@ -1,0 +1,10 @@
+.containerNavigation {
+  min-width: 320px;
+  max-width: 1440px;
+  height: 75px;
+  display: flex;
+  background-color: rgb(57, 67, 122);
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 1;
+}

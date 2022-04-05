@@ -1,0 +1,12 @@
+.active {
+  color: rgb(225, 240, 18);
+  cursor: default;
+
+  padding-left: 20px;
+}
+
+.link {
+  text-decoration: none;
+  color: aliceblue;
+  padding-left: 20px;
+}

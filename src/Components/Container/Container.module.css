@@ -1,0 +1,12 @@
+.container {
+  background-image: url("../../photo/istockphoto-156771910-1024x1024\ \(1\).png");
+  font-family: Comic Sans MS, Comic Sans, cursive;
+  background-repeat: repeat;
+  background-size: contain;
+  overflow: auto;
+  height: 100vh;
+  min-width: 300px;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -1,16 +1,5 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import {
-  // addContactsRequest,
-  // addContactsSuccess,
-  // addContactsError,
-  deleteContactsRequest,
-  deleteContactsError,
-  deleteContactsSuccess,
-  fetchContactsError,
-  fetchContactsRequest,
-  fetchContactsSuccess,
-} from "./contacts-action";
 
 // axios.defaults.baseURL = "https://6235f643163bf7c474604d18.mockapi.io/contacts";
 axios.defaults.baseURL = "https://connections-api.herokuapp.com";
@@ -23,7 +12,7 @@ export const fetchContacts = createAsyncThunk(
 
       return data;
     } catch (error) {
-      rejectWithValue(alert(error.message));
+      return rejectWithValue(alert(error.message));
     }
   }
 );

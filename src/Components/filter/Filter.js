@@ -11,15 +11,17 @@ export default function Filter() {
   const dispatch = useDispatch();
 
   return (
-    <label className={s.container}>
-      filter for name{" "}
-      <input
-        className={s.inputName}
-        type="text"
-        value={valueFilter}
-        onChange={(e) => dispatch(changeFilter(e.target.value))}
-      />
-    </label>
+    <div className={s.container}>
+      <label className={s.label}>
+        Filter for name{" "}
+        <input
+          className={s.inputName}
+          type="text"
+          value={valueFilter}
+          onChange={(e) => dispatch(changeFilter(e.target.value))}
+        />
+      </label>
+    </div>
   );
 }
 

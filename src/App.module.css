@@ -3,6 +3,11 @@
   justify-content: center;
 }
 
+.loader {
+  display: flex;
+  justify-content: center;
+}
+
 /* .App {
   text-align: center;
 }

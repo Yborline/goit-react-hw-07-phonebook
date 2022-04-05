@@ -1,0 +1,19 @@
+.container {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.containerDiv {
+  display: flex;
+  justify-content: center;
+}
+.input {
+  margin-left: 10px;
+}
+
+.label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}

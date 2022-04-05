@@ -2,41 +2,47 @@ import s from "./listForm.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { contactsOperations, contactsSelectors } from "redux/contact";
-import { useEffect } from "react";
+import React from "react";
+import { Button } from "@mui/material";
 
 const ListForm = () => {
+  const { deleteContacts } = contactsOperations;
   const { findContact } = contactsSelectors;
   const dispatch = useDispatch();
   const onContacts = useSelector(findContact);
 
-  useEffect(() => {
-    dispatch(contactsOperations.fetchContacts());
-  }, [dispatch]);
-
   return (
-    <ul className={s.list}>
-      {onContacts.map((contact) => (
-        <li className={s.line} key={contact.id}>
-          <span>{contact.name}: </span>
-          <span>{contact.number}</span>
-          <button
-            className={s.button}
-            type="submit"
-            onClick={() =>
-              dispatch(contactsOperations.deleteContacts(contact.id))
-            }
-          >
-            delete
-          </button>
-        </li>
-      ))}
-    </ul>
+    <div className={s.container}>
+      {" "}
+      <ul className={s.list}>
+        {onContacts.map(({ id, name, number }) => (
+          <li className={s.line} key={id}>
+            <div className={s.containerLi}>
+              <span>{name}: </span>
+              <span>{number}</span>
+            </div>
+            <div>
+              <Button
+                className={s.button}
+                variant="contained"
+                size="small"
+                color="error"
+                type="submit"
+                onClick={() => dispatch(deleteContacts(id))}
+              >
+                delete
+              </Button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
 ListForm.propTypes = {
   onContacts: PropTypes.array,
-  onDelete: PropTypes.func,
+  deleteContacts: PropTypes.func,
 };
 
 export default ListForm;

@@ -1,0 +1,23 @@
+.container {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  /* width: 320px; */
+  /* justify-content: center; */
+}
+
+.containerDiv {
+  display: flex;
+  justify-content: center;
+}
+
+.input {
+  /* display: inline-flex; */
+  margin-left: 10px;
+}
+
+.label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}

@@ -3,7 +3,7 @@
 // import RegisterPage from "./pages/RegisterPage";
 // import { Home } from "./pages/Home";
 import Container from "Components/Container/Container";
-import AppBar from "Components/AppBar/AppBar.js";
+import MenuAppBar from "Components/AppBar/AppBar.js";
 import PrivateRoute from "Components/PrivateRoute";
 import PablicRoute from "Components/PablicRoute";
 import authSelectors from "redux/auth/auth-selectors";
@@ -13,15 +13,17 @@ import { Suspense, useEffect, lazy } from "react";
 import { getLoading, getError } from "./redux/contact/contacts-selectors";
 import toast from "react-hot-toast";
 import { Navigate, Route, Routes } from "react-router-dom";
-// import s from "./App.module.css";
+import AppBar from "Components/AppBar/AppBar.js";
+import PropagateLoader from "react-spinners/PropagateLoader";
+import s from "./App.module.css";
 // import hooks from "./hooks/appHooks";
 
 export default function App() {
   // const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
   // const loading = useSelector(getLoading);
   const error = useSelector(getError);
-  const isFetchingCurrent = useSelector(authSelectors.getIsFetchingCurrentUser);
-  console.log(isFetchingCurrent);
+  const isFetchingCurrentUser = useSelector(authSelectors.getIsFetchingCurrent);
+
   const dispatch = useDispatch();
 
   const Home = lazy(() => import("./pages/Home"));
@@ -29,39 +31,53 @@ export default function App() {
   const LoginPages = lazy(() => import("./pages/LoginPage"));
   const ContactsPage = lazy(() => import("./pages/ContactsPage"));
 
+  // useEffect(() => {
+  //   dispatch(authOperations.fetchCurrentUser(), [dispatch]);
+  // });
+
   useEffect(() => {
-    dispatch(authOperations.fetchCurrentUser(), [dispatch]);
-  });
+    dispatch(authOperations.fetchCurrentUser());
+  }, [dispatch]);
 
   if (error) {
     return toast.error("Oops!...Something went wrong");
   }
-
+  console.log(isFetchingCurrentUser);
   return (
     // className={s.containerForm}
     <Container>
-      <AppBar />
-      <Suspense fallback={<p>LOADING...</p>}>
-        <Routes>
-          <Route path="/" element={<PablicRoute />}>
-            <Route path="/" element={<Home />} />
-          </Route>
-
-          <Route path="/login" element={<PablicRoute restricted />}>
-            <Route path="/login" element={<LoginPages />} />
-          </Route>
-
-          <Route path="/register" element={<PablicRoute restricted />}>
-            <Route path="/register" element={<RegisterPage />} />
-          </Route>
-          <Route
-            path="/contacts"
-            element={<PrivateRoute redirectTo="/login" />}
+      {!isFetchingCurrentUser && (
+        <>
+          <AppBar />
+          <Suspense
+            fallback={
+              <p className={s.loader}>
+                <PropagateLoader
+                  color={"#2962ff"}
+                  // loading={loading}
+                  // css={override}
+                  size={10}
+                />
+              </p>
+            }
           >
-            <Route path="/contacts" element={<ContactsPage />} />
-          </Route>
+            <Routes>
+              <Route path="/" element={<PablicRoute />}>
+                <Route path="/" element={<Home />} />
+              </Route>
 
-          {/* <Route
+              <Route path="/login" element={<PablicRoute restricted />}>
+                <Route path="/login" element={<LoginPages />} />
+              </Route>
+
+              <Route path="/register" element={<PablicRoute restricted />}>
+                <Route path="/register" element={<RegisterPage />} />
+              </Route>
+              <Route path="/contacts" element={<PrivateRoute />}>
+                <Route path="/contacts" element={<ContactsPage />} />
+              </Route>
+
+              {/* <Route
             path="/contacts"
             element={
               <PrivateRoute>
@@ -70,22 +86,18 @@ export default function App() {
             }
           /> */}
 
-          {/* <PrivateRoute path="/contacts">
+              {/* <PrivateRoute path="/contacts">
             <ContactsPage />
           </PrivateRoute> */}
 
-          <Route path="*" element={<Navigate to="/" />} />
-          {/* </Route> */}
-        </Routes>
-      </Suspense>
-
-      {/* <div> {loading ? <h1>LOADING ...</h1> : <Filter />}</div> */}
-
-      {/* <ListForm /> */}
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </Suspense>
+        </>
+      )}
     </Container>
   );
 }
-
 // const [contacts, setContacts] = hooks.useLocalStorage("phonebook", []);
 // const [filter, setFilter] = useState("");
 

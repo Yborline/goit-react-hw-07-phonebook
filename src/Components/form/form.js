@@ -4,11 +4,12 @@ import s from "./form.module.css";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { contactsSelectors, contactsOperations } from "../../redux/contact";
-// import * as contactsOperations from "../../redux/contact/contacts-operation";
-
-// import contactsOperations from "../../redux/contact/contacts-operation";
+import { Button } from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Form() {
+  const { addContact } = contactsOperations;
   const { getForm } = contactsSelectors;
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -17,17 +18,18 @@ function Form() {
 
   const valueForm = useSelector(getForm);
   const dispatch = useDispatch();
-  const onSubmit = (text) => dispatch(contactsOperations.addContact(text));
+  const onSubmit = (text) => dispatch(addContact(text));
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     const state = { name, phone };
     valueForm.some(
       (contact) =>
         contact.phone === phone ||
         contact.name.toLowerCase() === name.toLowerCase()
     )
-      ? alert("Такой контакт уже есть")
+      ? toast("Такой контакт уже есть")
       : onSubmit(state);
     reset();
   };
@@ -78,9 +80,28 @@ function Form() {
           />
         </label>
       </div>
-      <button className={s.button} type="submit">
-        Save
-      </button>
+      <div className={s.buttonContainer}>
+        <Button
+          className={s.button}
+          size="small"
+          variant="contained"
+          color="success"
+          type="submit"
+        >
+          Save
+        </Button>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+      </div>
     </form>
   );
 }

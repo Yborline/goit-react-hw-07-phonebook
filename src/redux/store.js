@@ -10,7 +10,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import logger from "redux-logger";
+// import logger from "redux-logger";
 import contactsReducer from "./contact/contacts-reducer";
 import authReducer from "./auth/auth-slice";
 // import { number } from "prop-types";
@@ -21,7 +21,7 @@ const middleware = [
       ignoredActions: [FLUSH, PAUSE, REHYDRATE, PERSIST, PURGE, REGISTER],
     },
   }),
-  logger,
+  // logger,
 ];
 const authPersistConfig = {
   key: "auth",
